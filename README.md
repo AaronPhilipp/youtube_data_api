@@ -16,3 +16,7 @@ There are different youtube-specific-variables you should know when working with
 There are 3 different ways on how your channel URL is built up. Channel Id, Custom Name or Handle. To retrieve informations froma specific channel you should use the unique channel id which consists of numbers and letters and can look like this: `UCUZHFZ9jIKrLroW8LcyJEQQ`
 
 Google Reference: https://support.google.com/youtube/answer/6180214#
+
+### video ID
+
+The video ID will be located at the end of the video URL, right after the `v=`.
