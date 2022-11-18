@@ -1,6 +1,8 @@
 # YouTube Data API
 An experiment on how much data can be collected via the YouTube Data API in PYTHON.
 
+We will use the HTTP request method: https://www.w3schools.com/tags/ref_httpmethods.asp
+
 API Reference: https://developers.google.com/youtube/v3/docs
 
 ## Why using an API?
