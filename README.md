@@ -20,3 +20,5 @@ Google Reference: https://support.google.com/youtube/answer/6180214#
 ### video ID
 
 The video ID will be located at the end of the video URL, right after the `v=`.
+
+### comment ID
