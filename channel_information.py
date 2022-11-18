@@ -81,6 +81,7 @@ def get_channel_informations(channel_id, api_key):
 
     return df
 
+
 df = get_channel_informations(channel_id=channel_id, api_key=api_key)
 
 df.to_csv('PATH\\channel_inf.csv',
