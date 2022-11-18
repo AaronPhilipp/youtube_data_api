@@ -2,6 +2,8 @@ import pandas as pd
 import requests
 import datetime
 import time
+from main import api_key
+from main import channel_id
 
 # CHANNEL INFORMATIONS
 # You can only pass single channel_ids. If you have a list you have to use the function in a for-loop.
@@ -79,11 +81,19 @@ def get_channel_informations(channel_id, api_key):
 
     return df
 
+df = get_channel_informations(channel_id=channel_id, api_key=api_key)
+
+df.to_csv('PATH\\channel_inf.csv',
+           encoding='utf-8-sig')
+
+
+# big = pd.DataFrame()
+
 # get channel information
 # for i in channels:
 #     df = get_channel_informations(channel_id=i,
 #                                   api_key=api_key)
 #     big = pd.concat([big, df],
 #                     ignore_index=True)
-#     big.to_csv('PATH',
+#     big.to_csv('PATH\\channel_inf.csv',
 #                encoding='utf-8-sig')
