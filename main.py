@@ -6,6 +6,6 @@ import requests
 api_key = 'XXX'
 
 # IDs
-channel_id = 'XXX'
-video_id = 'XXX'
+channel_id = 'UCJZEk_r5_jeaV3HFGZgKV3g'
+video_id = 'fUB92yHjvO8'
 
