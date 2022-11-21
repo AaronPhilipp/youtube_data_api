@@ -281,7 +281,7 @@ def get_all_video_comments(video_id,api_key):
 
 df = get_all_video_comments(video_id=video_id, api_key=api_key)
 
-df.to_csv((path + 'XXX.csv'), encoding='utf-8-sig')
+df.to_csv((path + 'XXX.csv'), encoding='utf-8-sig', escapechar='\\')
 
 
 # GET COMMENTS OF MULTIPLE VIDEOS
