@@ -3,6 +3,7 @@ import requests
 import datetime
 import time
 from main import api_key
+from main import path
 from main import channel_id
 
 # CHANNEL INFORMATIONS
@@ -84,17 +85,15 @@ def get_channel_informations(channel_id, api_key):
 
 df = get_channel_informations(channel_id=channel_id, api_key=api_key)
 
-df.to_csv('PATH\\channel_inf.csv',
-           encoding='utf-8-sig')
+df.to_csv((path + 'XXX.csv'), encoding='utf-8-sig')
 
+
+# GET CHANNEL INFORMATIONS FOR MULTIPLE CHANNELS
 
 # big = pd.DataFrame()
+# channels = ['channel1','channel2',...]
 
-# get channel information
 # for i in channels:
-#     df = get_channel_informations(channel_id=i,
-#                                   api_key=api_key)
-#     big = pd.concat([big, df],
-#                     ignore_index=True)
-#     big.to_csv('PATH\\channel_inf.csv',
-#                encoding='utf-8-sig')
+#     df = get_channel_informations(channel_id=i, api_key=api_key)
+#     big = pd.concat([big, df], ignore_index=True)
+#     big.to_csv((path + 'XXX.csv'),  encoding='utf-8-sig')
