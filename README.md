@@ -24,3 +24,5 @@ Google Reference: https://support.google.com/youtube/answer/6180214#
 The video ID will be located at the end of the video URL, right after the `v=`.
 
 ### comment ID
+
+When you comment a YouTube Video you get an unique comment ID which looks like this: UgwibHX_mctrwUcNmrl4AaABAg. When you reply to a comment your comment ID is concatenated with the comment ID of the parent (the comment you're replying) and looks like this: UgwibHX_mctrwUcNmrl4AaABAg.9he9SIE3ktd9igqkBpGExC.
