@@ -9,3 +9,5 @@ api_key = 'XXX'
 channel_id = 'UCJZEk_r5_jeaV3HFGZgKV3g'
 video_id = 'fUB92yHjvO8'
 
+# SPECIFYING THE PATH FOR SAVING
+path = 'C:\\XXX\\'
