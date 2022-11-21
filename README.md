@@ -15,7 +15,7 @@ There are different youtube-specific-variables you should know when working with
 
 ### channel ID
 
-There are 3 different ways on how your channel URL is built up. Channel Id, Custom Name or Handle. To retrieve informations froma specific channel you should use the unique channel id which consists of numbers and letters and can look like this: `UCUZHFZ9jIKrLroW8LcyJEQQ`
+There are 3 different ways on how your channel URL is built up. Channel Id, Custom Name or Handle. To retrieve informations froma specific channel you should use the unique channel id which consists of numbers and letters and can look like this: `UCUZHFZ9jIKrLroW8LcyJEQQ`. As you see, the second character of the `ID` is a 'C'. If you change this to an 'U', u have the `Playlist ID` for all uploaded videos of the channel.
 
 Google Reference: https://support.google.com/youtube/answer/6180214#
 
