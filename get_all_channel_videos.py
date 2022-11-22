@@ -8,7 +8,6 @@ from main import channel_id
 
 
 def get_all_channel_videos(channel_id, api_key):
-
     df = pd.DataFrame(columns=['channel_id',
                                'video_id',
                                'video_title',
@@ -32,7 +31,7 @@ def get_all_channel_videos(channel_id, api_key):
 
     url = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=id&part=snippet&part=status&playlistId=' + playlist_id + '&maxResults=50&key=' + api_key
     response = requests.get(url=url).json()
-    time.sleep(0.01) # short break after request
+    time.sleep(0.01)  # short break after request
 
     # If there are more than 50 results, the response gives back a nextPageToken to get the other results, so we need to save this Token
     if 'nextPageToken' not in response:
@@ -134,7 +133,8 @@ def get_all_channel_videos(channel_id, api_key):
             vid_duration = ''
 
         try:
-            if 'tags' not in response2['items'][0]['snippet']: # TODO: Maybe there's a better formation than the original brackets.
+            if 'tags' not in response2['items'][0][
+                'snippet']:  # TODO: Maybe there's a better formation than the original brackets.
                 video_tags = ''
             elif 'tags' in response2['items'][0]['snippet']:
                 video_tags = response2['items'][0]['snippet']['tags']
@@ -273,7 +273,8 @@ def get_all_channel_videos(channel_id, api_key):
                 if 'tags' not in response2['items'][0]['snippet']:
                     video_tags = ''
                 elif 'tags' in response2['items'][0]['snippet']:
-                    video_tags = response2['items'][0]['snippet']['tags']  # TODO: Maybe there's a better formation than the original brackets.
+                    video_tags = response2['items'][0]['snippet'][
+                        'tags']  # TODO: Maybe there's a better formation than the original brackets.
             except KeyError:
                 video_tags = ''
 
