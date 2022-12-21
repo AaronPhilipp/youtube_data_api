@@ -6,7 +6,7 @@ import requests
 api_key = 'AIzaSyDaI2OWjk0Y62jgKL2_UQWy5eTOEOEOpIs'
 
 # IDs
-video_ids = pd.read_csv('C:/Users/Aaron Philipp/Documents/sentiment_analysis_conference/data/video_ids_non-zero.csv',
+video_ids = pd.read_csv('C:/XXX',
                        index_col=0,
                        sep=",",
                        encoding='latin1'
