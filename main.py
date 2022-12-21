@@ -3,11 +3,15 @@ import json
 import requests
 
 # KEYS
-api_key = 'XXX'
+api_key = 'AIzaSyDaI2OWjk0Y62jgKL2_UQWy5eTOEOEOpIs'
 
 # IDs
-channel_id = 'UCJZEk_r5_jeaV3HFGZgKV3g'
-video_id = 'fUB92yHjvO8'
+video_ids = pd.read_csv('C:/Users/Aaron Philipp/Documents/sentiment_analysis_conference/data/video_ids_non-zero.csv',
+                       index_col=0,
+                       sep=",",
+                       encoding='latin1'
+                       )
+video_ids = video_ids['video_id'].to_list()
 
 # SPECIFYING THE PATH FOR SAVING
-path = 'C:\\XXX\\'
+path = 'C:\\Users\\Aaron Philipp\\Documents\\'

@@ -2,6 +2,8 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from main import video_id
 import pandas as pd
 from main import path
+import time
+from random import randint
 
 def get_caption(video_id):
     df = pd.DataFrame(columns=['video_id', 'subtitle'])
@@ -30,6 +32,8 @@ def get_caption(video_id):
 
     df = pd.concat([df, pd.DataFrame([{'video_id': video_id, 'subtitle': text}])])
 
+    time.sleep(randint(15,20))  # short break after request
+
     return df
 
 
@@ -37,9 +41,9 @@ def get_caption(video_id):
 # GET SUBTITLE OF MULTIPLE VIDEOS
 
 big = pd.DataFrame()
-video_ids = ['NqI6PMRxT0Y', 'R277Tc35Y4A', '-E-Qe8jdbbQ']
+# video_ids = ['IYN37vFn09c', 'R277Tc35Y4A', '-E-Qe8jdbbQ']
 
 for i in video_ids:
     df = get_caption(video_id=i)
     big = pd.concat([big, df], ignore_index=True)
-    big.to_csv((path + 'XXX.csv'),  encoding='utf-8-sig')
+    big.to_csv((path + 'XXX5.csv'),  encoding='utf-8-sig')
