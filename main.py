@@ -3,15 +3,18 @@ import json
 import requests
 
 # KEYS
-api_key = 'AIzaSyDaI2OWjk0Y62jgKL2_UQWy5eTOEOEOpIs'
+api_key = 'KEY'
 
 # IDs
-video_ids = pd.read_csv('C:/XXX',
+channel_ids = pd.read_csv('C:/Users/XXX.csv',
                        index_col=0,
                        sep=",",
                        encoding='latin1'
                        )
-video_ids = video_ids['video_id'].to_list()
+
+channel_ids = channel_ids['Channel ID'].to_list()
+
+len(channel_ids)
 
 # SPECIFYING THE PATH FOR SAVING
-path = 'C:\\Users\\Aaron Philipp\\Documents\\'
+path = 'C:\\Users\\Aaron Philipp\\Documents'
