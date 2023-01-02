@@ -25,15 +25,17 @@ def get_all_channel_videos(channel_id, api_key):
                                ]
                       )
 
-    # all uploads of a channel are stored in the so called upload_playlist.
+    # all uploads of a channel are stored in the so-called upload_playlist.
     # To get the link to this playlist you only need to replace the 'C' in the 2nd place with 'U'.
     playlist_id = channel_id[:1] + 'U' + channel_id[2:]
 
-    url = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=id&part=snippet&part=status&playlistId=' + playlist_id + '&maxResults=50&key=' + api_key
+    url = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=id&part=snippet&part=status&playlistId=' \
+          + playlist_id + '&maxResults=50&key=' + api_key
     response = requests.get(url=url).json()
     time.sleep(0.01)  # short break after request
 
-    # If there are more than 50 results, the response gives back a nextPageToken to get the other results, so we need to save this Token
+    # If there are more than 50 results, the response gives back a nextPageToken to get the other results,
+    # so we need to save this Token
     if 'nextPageToken' not in response:
         page_token = []
     elif 'nextPageToken' in response:
@@ -43,14 +45,14 @@ def get_all_channel_videos(channel_id, api_key):
         raise TypeError(response['error']['message'])
 
     if 'items' not in response:
-        raise TypeError('A problem with the channel_id' + channel_id + 'occured.')
+        raise TypeError('A problem with the channel_id' + channel_id + 'occurred.')
 
     elif 'items' in response:
 
         # going through each item on the first page
         for i in response['items']:
 
-            # add an try/except statement if a KeyError occurs: We need this so the script doesn't exit
+            # add a try/except statement if a KeyError occurs: We need this so the script doesn't exit
             try:
                 channel_id = i['snippet']['channelId']
             except KeyError:
@@ -73,8 +75,9 @@ def get_all_channel_videos(channel_id, api_key):
 
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-
-            url2 = 'https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=id&part=statistics&part=localizations&part=status&part=contentDetails&part=liveStreamingDetails&part=topicDetails&id=' + video_id + '&maxResults=50&key=' + api_key
+            url2 = 'https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=id&part=statistics&part=' \
+                   'localizations&part=status&part=contentDetails&part=liveStreamingDetails&part=topicDetails&id=' \
+                   + video_id + '&maxResults=50&key=' + api_key
             response2 = requests.get(url=url2).json()
             time.sleep(0.01)  # short break after request
 
@@ -89,7 +92,8 @@ def get_all_channel_videos(channel_id, api_key):
             except KeyError:
                 video_description = ''
 
-            # sometimes there is no thumbnail in maxres available. If this is the case, we need to look for other resolutions
+            # sometimes there is no thumbnail in maxres available. If this is the case,
+            # we need to look for other resolutions
             try:
                 if 'maxres' in response2['items'][0]['snippet']['thumbnails']:
                     video_thumbnail = response2['items'][0]['snippet']['thumbnails']['maxres']['url']
@@ -145,7 +149,8 @@ def get_all_channel_videos(channel_id, api_key):
                 vid_duration = ''
 
             try:
-                if 'tags' not in response2['items'][0]['snippet']:  # TODO: Maybe there's a better formation than the original brackets.
+                if 'tags' not in response2['items'][0]['snippet']:
+                    # TODO: Maybe there's a better formation than the original brackets.
                     video_tags = ''
                 elif 'tags' in response2['items'][0]['snippet']:
                     video_tags = response2['items'][0]['snippet']['tags']
@@ -177,9 +182,9 @@ def get_all_channel_videos(channel_id, api_key):
                 'timestamp': timestamp
             }])], ignore_index=True)
 
-
     while page_token != []:
-        url = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=id&part=snippet&part=status&playlistId=' + playlist_id + '&maxResults=50&key=' + api_key + '&pageToken=' + page_token
+        url = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=id&part=snippet&part=status&playlistId=' \
+              + playlist_id + '&maxResults=50&key=' + api_key + '&pageToken=' + page_token
         response = requests.get(url=url).json()
         time.sleep(0.01)  # short break after request
 
@@ -199,7 +204,7 @@ def get_all_channel_videos(channel_id, api_key):
             # going through each item on the first page
             for i in response['items']:
 
-                # add an try/except statement if a KeyError occurs: We need this so the script doesn't exit
+                # add a try/except statement if a KeyError occurs: We need this so the script doesn't exit
                 try:
                     channel_id = i['snippet']['channelId']
                 except KeyError:
@@ -222,7 +227,9 @@ def get_all_channel_videos(channel_id, api_key):
 
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-                url2 = 'https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=id&part=statistics&part=localizations&part=status&part=contentDetails&part=liveStreamingDetails&part=topicDetails&id=' + video_id + '&maxResults=50&key=' + api_key
+                url2 = 'https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=id&part=statistics&part=' \
+                       'localizations&part=status&part=contentDetails&part=liveStreamingDetails&part=topicDetails&id=' \
+                       + video_id + '&maxResults=50&key=' + api_key
                 response2 = requests.get(url=url2).json()
                 time.sleep(0.01)  # short break after request
 
@@ -237,7 +244,8 @@ def get_all_channel_videos(channel_id, api_key):
                 except KeyError:
                     video_description = ''
 
-                # sometimes there is no thumbnail in maxres available. If this is the case, we need to look for other resolutions
+                # sometimes there is no thumbnail in maxres available. If this is the case,
+                # we need to look for other resolutions
                 try:
                     if 'maxres' in response2['items'][0]['snippet']['thumbnails']:
                         video_thumbnail = response2['items'][0]['snippet']['thumbnails']['maxres']['url']
@@ -296,7 +304,8 @@ def get_all_channel_videos(channel_id, api_key):
                     if 'tags' not in response2['items'][0]['snippet']:
                         video_tags = ''
                     elif 'tags' in response2['items'][0]['snippet']:
-                        video_tags = response2['items'][0]['snippet']['tags']  # TODO: Maybe there's a better formation than the original brackets.
+                        video_tags = response2['items'][0]['snippet']['tags']
+                        # TODO: Maybe there's a better formation than the original brackets.
                 except KeyError:
                     video_tags = ''
 
@@ -309,7 +318,7 @@ def get_all_channel_videos(channel_id, api_key):
                     livebroadcastcontent = ''
 
                 df = pd.concat([df, pd.DataFrame([{
-                'channel_id': '"' + channel_id + '"',
+                    'channel_id': '"' + channel_id + '"',
                     'video_id': '"' + video_id + '"',
                     'video_title': '"' + video_title + '"',
                     'publication_date': publication_date,
@@ -330,6 +339,7 @@ def get_all_channel_videos(channel_id, api_key):
 # channel_id = 'XXX'
 # df = get_all_channel_videos(channel_id=channel_id, api_key=api_key)
 # df.to_csv((path + 'XXX.csv'), encoding='utf-8-sig')
+
 
 channel_ids_list = channel_ids['channel_id'].to_list()
 
