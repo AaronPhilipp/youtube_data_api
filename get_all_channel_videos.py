@@ -342,4 +342,4 @@ for i in channel_ids_list:
     big = pd.concat([big, df], ignore_index=True)
     big.to_csv((path + 'video_informations_2023-01-02_1.csv'),  encoding='utf-8-sig')
     channel_ids = channel_ids[channel_ids['channel_id'] != i]
-    channel_ids.to_csv('C:\\Users\\Aaron Philipp\\Documents\\TubeWork\\data\\channel_ids_for_video_informations__left.csv')
+    channel_ids.to_csv('C:\\Users\\XXX.csv')
