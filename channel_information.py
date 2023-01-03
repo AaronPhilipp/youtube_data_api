@@ -2,9 +2,11 @@ import pandas as pd
 import requests
 import datetime
 import time
+import os
 from main import api_key
 from main import path
-from main import channel_id
+from main import channel_ids
+
 
 # CHANNEL INFORMATIONS
 # You can only pass single channel_ids. If you have a list you have to use the function in a for-loop.
@@ -29,6 +31,9 @@ def get_channel_informations(channel_id, api_key):
 
     response = requests.get(url=url).json()
     time.sleep(0.01)  # short break after request
+
+    if 'error' in response:
+        raise TypeError(response['error']['message'])
 
     # Some channels don't exist anymore. We need this if-else-statement to not exit the script.
     if 'items' in response:
@@ -83,17 +88,26 @@ def get_channel_informations(channel_id, api_key):
     return df
 
 
-df = get_channel_informations(channel_id=channel_id, api_key=api_key)
+# GET CHANNEL INFORMATION FROM SINGLE CHANNEL
 
-df.to_csv((path + 'XXX.csv'), encoding='utf-8-sig')
+# df = get_channel_informations(channel_id=channel_id, api_key=api_key)
+# df.to_csv((path + 'XXX.csv'), encoding='utf-8-sig')
 
 
 # GET CHANNEL INFORMATIONS FOR MULTIPLE CHANNELS
+channel_ids_list = channel_ids['channel_id'].to_list()
 
-# big = pd.DataFrame()
-# channels = ['channel1','channel2',...]
-
-# for i in channels:
-#     df = get_channel_informations(channel_id=i, api_key=api_key)
-#     big = pd.concat([big, df], ignore_index=True)
-#     big.to_csv((path + 'XXX.csv'),  encoding='utf-8-sig')
+for i in channel_ids_list:
+    tmp = get_channel_informations(channel_id=i, api_key=api_key)
+    if os.path.isfile(path + 'channel_informations_' + time.strftime("%Y-%m-%d") + '.csv'):
+        df = pd.read_csv(path + 'channel_informations_' + time.strftime("%Y-%m-%d") + '.csv',
+                         index_col=0)
+        df = pd.concat([df, tmp], ignore_index=True)
+        df.to_csv((path + 'channel_informations_' + time.strftime("%Y-%m-%d") + '.csv'),
+                  encoding='utf-8-sig')
+    else:
+        tmp.to_csv((path + 'channel_informations_' + time.strftime("%Y-%m-%d") + '.csv'),
+                   encoding='utf-8-sig')
+    channel_ids = channel_ids[channel_ids['channel_id'] != i]
+    channel_ids.to_csv('C:\\Users\\XXX\\'
+                       'channel_ids_for_channel_informations__left.csv')
