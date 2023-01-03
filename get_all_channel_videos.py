@@ -364,14 +364,14 @@ channel_ids_list = channel_ids['channel_id'].to_list()
 for i in channel_ids_list:
     try:
         tmp = get_all_channel_videos(channel_id=i, api_key=api_key)
-        if os.path.isfile(path + 'video_informations_' + time.strftime("%Y-%m-%d") + '.csv'):
-            df = pd.read_csv(path + 'video_informations_' + time.strftime("%Y-%m-%d") + '.csv',
+        if os.path.isfile(path + 'video_information_' + time.strftime("%Y-%m-%d") + '.csv'):
+            df = pd.read_csv(path + 'video_information_' + time.strftime("%Y-%m-%d") + '.csv',
                                 index_col=0)
             df = pd.concat([df,tmp],ignore_index=True)
-            df.to_csv((path + 'video_informations_' + time.strftime("%Y-%m-%d") + '.csv'),
+            df.to_csv((path + 'video_information_' + time.strftime("%Y-%m-%d") + '.csv'),
                         encoding='utf-8-sig')
         else:
-            tmp.to_csv((path + 'video_informations_' + time.strftime("%Y-%m-%d") + '.csv'),
+            tmp.to_csv((path + 'video_information_' + time.strftime("%Y-%m-%d") + '.csv'),
                            encoding='utf-8-sig')
     except RuntimeError:
         if os.path.isfile(path + 'channel_ids_over_9000' + '.csv'):
@@ -410,5 +410,5 @@ for i in channel_ids_list:
             tmp.to_csv((path + 'channel_ids_errors' + '.csv'),
                        encoding='utf-8-sig')
     channel_ids = channel_ids[channel_ids['channel_id'] != i]
-    channel_ids.to_csv('C:\\Users\\XXX'
+    channel_ids.to_csv('C:\\Users\\XXX\\'
                        'channel_ids_for_video_informations__left.csv')

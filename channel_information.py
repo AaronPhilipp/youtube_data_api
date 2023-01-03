@@ -98,14 +98,14 @@ channel_ids_list = channel_ids['channel_id'].to_list()
 
 for i in channel_ids_list:
     tmp = get_channel_informations(channel_id=i, api_key=api_key)
-    if os.path.isfile(path + 'channel_informations_' + time.strftime("%Y-%m-%d") + '.csv'):
-        df = pd.read_csv(path + 'channel_informations_' + time.strftime("%Y-%m-%d") + '.csv',
+    if os.path.isfile(path + 'channel_information_' + time.strftime("%Y-%m-%d") + '.csv'):
+        df = pd.read_csv(path + 'channel_information_' + time.strftime("%Y-%m-%d") + '.csv',
                          index_col=0)
         df = pd.concat([df, tmp], ignore_index=True)
-        df.to_csv((path + 'channel_informations_' + time.strftime("%Y-%m-%d") + '.csv'),
+        df.to_csv((path + 'channel_information_' + time.strftime("%Y-%m-%d") + '.csv'),
                   encoding='utf-8-sig')
     else:
-        tmp.to_csv((path + 'channel_informations_' + time.strftime("%Y-%m-%d") + '.csv'),
+        tmp.to_csv((path + 'channel_information_' + time.strftime("%Y-%m-%d") + '.csv'),
                    encoding='utf-8-sig')
     channel_ids = channel_ids[channel_ids['channel_id'] != i]
     channel_ids.to_csv('C:\\Users\\XXX\\'
