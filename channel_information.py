@@ -9,9 +9,6 @@ from main import channel_ids
 
 
 # CHANNEL INFORMATIONS
-# You can only pass single channel_ids. If you have a list you have to use the function in a for-loop.
-
-
 def get_channel_informations(channel_id, api_key):
     df = pd.DataFrame(columns=['channel_id',
                                'channel_title',
@@ -27,7 +24,9 @@ def get_channel_informations(channel_id, api_key):
                                ]
                       )
 
-    url = 'https://youtube.googleapis.com/youtube/v3/channels?part=id&part=snippet&part=statistics&part=topicDetails&part=contentDetails&part=brandingSettings&id=' + channel_id + '&maxResults=20&pageToken=' + 'None' + '&key=' + api_key
+    url = 'https://youtube.googleapis.com/youtube/v3/channels?part=id&part=snippet&part=statistics&part=' \
+          'topicDetails&part=contentDetails&part=brandingSettings&id=' + channel_id + \
+          '&maxResults=20&pageToken=' + 'None' + '&key=' + api_key
 
     response = requests.get(url=url).json()
     time.sleep(0.01)  # short break after request
