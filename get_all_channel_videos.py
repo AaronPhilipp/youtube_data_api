@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import requests
 import datetime
@@ -25,6 +26,20 @@ def get_all_channel_videos(channel_id, api_key):
                                ]
                       )
 
+    # check how much videos are uploaded by a channel because of quota restrictions:
+    url = 'https://youtube.googleapis.com/youtube/v3/channels?part=id&part=snippet&part=statistics&part=' \
+          'topicDetails&part=contentDetails&part=brandingSettings&id=' + channel_id + \
+          '&maxResults=20&pageToken=' + 'None' + '&key=' + api_key
+
+    response = requests.get(url=url).json()
+
+    video_count = int(response['items'][0]['statistics']['videoCount'])
+
+    if video_count > 9000:
+        raise RuntimeError('The Channel uploaded more than 9000 Videos. The Channel ID is stored in a separate .csv '
+                           'to not exceed the quota limit.')
+
+
     # all uploads of a channel are stored in the so-called upload_playlist.
     # To get the link to this playlist you only need to replace the 'C' in the 2nd place with 'U'.
     playlist_id = channel_id[:1] + 'U' + channel_id[2:]
@@ -42,7 +57,7 @@ def get_all_channel_videos(channel_id, api_key):
         page_token = response['nextPageToken']
 
     if 'error' in response:
-        raise TypeError(response['error']['message'])
+        raise ValueError(response['error']['message'])
 
     if 'items' not in response:
         raise TypeError('A problem with the channel_id' + channel_id + 'occurred.')
@@ -336,20 +351,64 @@ def get_all_channel_videos(channel_id, api_key):
 
     return df
 
+# GET VIDEO INFORMATION OF A SINGLE CHANNEL
+
 # channel_id = 'XXX'
 # df = get_all_channel_videos(channel_id=channel_id, api_key=api_key)
 # df.to_csv((path + 'XXX.csv'), encoding='utf-8-sig')
 
+# GET VIDEO INFORMATIONS OF MULTIPLE CHANNELS
 
 channel_ids_list = channel_ids['channel_id'].to_list()
 
-# GET VIDEO INFORMATIONS OF MULTIPLE CHANNELS
-
-big = pd.DataFrame()
-
 for i in channel_ids_list:
-    df = get_all_channel_videos(channel_id=i, api_key=api_key)
-    big = pd.concat([big, df], ignore_index=True)
-    big.to_csv((path + 'video_informations_2023-01-02_1.csv'),  encoding='utf-8-sig')
+    try:
+        tmp = get_all_channel_videos(channel_id=i, api_key=api_key)
+        if os.path.isfile(path + 'video_informations_' + time.strftime("%Y-%m-%d") + '.csv'):
+            df = pd.read_csv(path + 'video_informations_' + time.strftime("%Y-%m-%d") + '.csv',
+                                index_col=0)
+            df = pd.concat([df,tmp],ignore_index=True)
+            df.to_csv((path + 'video_informations_' + time.strftime("%Y-%m-%d") + '.csv'),
+                        encoding='utf-8-sig')
+        else:
+            tmp.to_csv((path + 'video_informations_' + time.strftime("%Y-%m-%d") + '.csv'),
+                           encoding='utf-8-sig')
+    except RuntimeError:
+        if os.path.isfile(path + 'channel_ids_over_9000' + '.csv'):
+            df = pd.read_csv(path + 'channel_ids_over_9000' + '.csv',
+                             index_col=0)
+
+            tmp = pd.DataFrame([{
+                'channel_id': i
+            }])
+
+            df = pd.concat([df,tmp],ignore_index=True)
+            df.to_csv((path + 'channel_ids_over_9000' + '.csv'),
+                       encoding='utf-8-sig')
+        else:
+            tmp = pd.DataFrame([{
+                'channel_id': i
+            }])
+            tmp.to_csv((path + 'channel_ids_over_9000' + '.csv'),
+                       encoding='utf-8-sig')
+    except ValueError:
+        if os.path.isfile(path + 'channel_ids_errors' + '.csv'):
+            df = pd.read_csv(path + 'channel_ids_errors' + '.csv',
+                             index_col=0)
+
+            tmp = pd.DataFrame([{
+                'channel_id': i
+            }])
+
+            df = pd.concat([df,tmp],ignore_index=True)
+            df.to_csv((path + 'channel_ids_errors' + '.csv'),
+                       encoding='utf-8-sig')
+        else:
+            tmp = pd.DataFrame([{
+                'channel_id': i
+            }])
+            tmp.to_csv((path + 'channel_ids_errors' + '.csv'),
+                       encoding='utf-8-sig')
     channel_ids = channel_ids[channel_ids['channel_id'] != i]
-    channel_ids.to_csv('C:\\Users\\XXX.csv')
+    channel_ids.to_csv('C:\\Users\\XXX'
+                       'channel_ids_for_video_informations__left.csv')
