@@ -1,6 +1,8 @@
-# YouTube Data API
-An experiment on how much data can be collected via the YouTube Data API in PYTHON.
+# Tubework Project
+I'm a Research Associate in the DFG-funded project Tubework. There we investigate the YouTuber-scene in the D-A-CH area. 
+To learn more about the project, visit our project website: https://www.uni-potsdam.de/de/sozialstrukturanalyse/index/forschung/tubework
 
+# YouTube Data API
 We will use the HTTP request method: https://www.w3schools.com/tags/ref_httpmethods.asp
 
 API Reference: https://developers.google.com/youtube/v3/docs
