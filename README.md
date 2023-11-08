@@ -1,4 +1,7 @@
 # Tubework Project
+
+cite this repository: [![DOI](https://zenodo.org/badge/567331406.svg)](https://zenodo.org/doi/10.5281/zenodo.10083234)
+
 I'm a Research Associate in the DFG-funded project Tubework. There we investigate the YouTuber-scene in the D-A-CH area. 
 To learn more about the project, visit our project website: https://www.uni-potsdam.de/de/sozialstrukturanalyse/index/forschung/tubework
 
